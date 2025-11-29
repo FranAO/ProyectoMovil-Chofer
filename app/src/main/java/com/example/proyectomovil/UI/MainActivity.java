@@ -1,4 +1,4 @@
-package com.example.proyectomovil;
+package com.example.proyectomovil.UI;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.cardview.widget.CardView;
+
+import com.example.proyectomovil.R;
 
 public class MainActivity extends BaseNavigationActivity {
     CardView settingsButton;
@@ -139,8 +141,8 @@ public class MainActivity extends BaseNavigationActivity {
                     org.json.JSONArray trips = new org.json.JSONArray(respuesta.toString());
                     if (trips.length() > 0) {
                         org.json.JSONObject trip = trips.getJSONObject(0);
-                        int occupiedSeats = trip.optInt("occupiedSeats");
-                        int totalSeats = trip.optInt("totalSeats");
+                        int occupiedSeats = trip.has("OccupiedSeats") ? trip.getInt("OccupiedSeats") : trip.optInt("occupiedSeats", 0);
+                        int totalSeats = trip.has("TotalSeats") ? trip.getInt("TotalSeats") : trip.optInt("totalSeats", 0);
 
                         runOnUiThread(() -> {
                             tvAsientosDispo.setText(occupiedSeats + " / " + totalSeats);

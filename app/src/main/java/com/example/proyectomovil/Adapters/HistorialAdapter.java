@@ -1,4 +1,4 @@
-package com.example.proyectomovil;
+package com.example.proyectomovil.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectomovil.Models.HistorialTrip;
+import com.example.proyectomovil.R;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;

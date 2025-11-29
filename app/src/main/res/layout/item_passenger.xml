@@ -79,6 +79,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
+                <ImageView
+                    android:id="@+id/ivPendingIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/pendiente"
+                    android:visibility="visible"
+                    android:tint="#FFFFFD"
+                    tools:ignore="UseAppTint" />
 
                 <ImageView
                     android:id="@+id/ivConfirmIcon"

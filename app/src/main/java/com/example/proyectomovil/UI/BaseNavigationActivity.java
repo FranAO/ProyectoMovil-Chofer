@@ -1,4 +1,4 @@
-package com.example.proyectomovil;
+package com.example.proyectomovil.UI;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
+
+import com.example.proyectomovil.R;
 
 public abstract class BaseNavigationActivity extends AppCompatActivity {
 

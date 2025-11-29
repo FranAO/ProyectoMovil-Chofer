@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/modern_gradient_bg"
-    tools:context=".SettingsActivity">
+    tools:context=".UI.SettingsActivity">
 
     <View
         android:id="@+id/circle1"
@@ -29,28 +29,28 @@
         android:layout_marginBottom="-75dp"
         android:layout_marginStart="-75dp" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/card_back_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#40FFFFFF"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="32dp"
-        app:cardElevation="4dp"
+        android:layout_marginTop="40dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:backgroundTint="#FFFFFF"
+        app:cornerRadius="24dp"
+        app:elevation="4dp"
+        app:icon="@drawable/atras"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="24dp"
+        app:iconTint="#8D0743"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
-            android:src="@drawable/atras"
-            app:tint="#8D0743" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="#208D0743"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Circle" />
 
     <ScrollView
         android:layout_width="0dp"

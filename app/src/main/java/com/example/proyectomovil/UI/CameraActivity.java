@@ -1,4 +1,4 @@
-package com.example.proyectomovil;
+package com.example.proyectomovil.UI;
 
 import android.Manifest;
 import android.content.SharedPreferences;
@@ -17,6 +17,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.example.proyectomovil.R;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
@@ -26,10 +28,8 @@ import com.google.mlkit.vision.common.InputImage;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -150,8 +150,15 @@ public class CameraActivity extends BaseNavigationActivity {
     private void validarTicket(String ticketId) {
         new Thread(() -> {
             try {
-                SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                SharedPreferences prefs = getSharedPreferences("MiAppPrefs", MODE_PRIVATE);
                 String email = prefs.getString("LOGGED_IN_USER_EMAIL", "");
+                
+                if (email.isEmpty()) {
+                    runOnUiThread(() -> {
+                        Toast.makeText(this, "Error: No se encontró el email del usuario", Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
 
                 URL urlDriver = new URL("http://10.0.2.2:5090/api/driver/email/" + email);
                 HttpURLConnection connDriver = (HttpURLConnection) urlDriver.openConnection();

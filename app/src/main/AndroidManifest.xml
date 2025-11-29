@@ -17,25 +17,10 @@
         android:theme="@style/Theme.ProyectoMovil"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".UI.SettingsActivity"
             android:exported="true" />
         <activity
-            android:name=".Login"
-            android:exported="true"/>
-        <activity
-            android:name=".WarningActivity"
-            android:exported="true" />
-        <activity
-            android:name=".CameraActivity"
-            android:exported="true" />
-        <activity
-            android:name=".PassengersActivity"
-            android:exported="true" />
-        <activity
-            android:name=".RouteActivity"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".UI.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,6 +28,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UI.WarningActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UI.CameraActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UI.PassengersActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UI.RouteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UI.MainActivity"
+            android:exported="true"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/api_key" />
     </application>
 
 </manifest>

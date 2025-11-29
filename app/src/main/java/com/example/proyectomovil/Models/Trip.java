@@ -1,110 +1,67 @@
 package com.example.proyectomovil.Models;
 
 import java.util.Date;
-import java.util.List;
 
 public class Trip {
-    private String Id;
-    private String DriverId;
-    private String RouteId;
-    private Date StartTime;
-    private Date EndTime;
-    private String Status;
-    private int OccupiedSeats;
-    private int TotalSeats;
-    private List<String> PassengerIds;
-    private List<String> TicketsIds;
+    private String id;
+    private String busId;
+    private String driverId;
+    private String routeId;
+    private Date startTime;
+    private Date endTime;
+    private String status;
+    private int occupiedSeats;
+    private int totalSeats;
 
-    public Trip(String id, String driverId, String routeId, Date startTime, Date endTime, String status, int occupiedSeats, int totalSeats, List<String> passengerIds, List<String> ticketsIds) {
-        Id = id;
-        DriverId = driverId;
-        RouteId = routeId;
-        StartTime = startTime;
-        EndTime = endTime;
-        Status = status;
-        OccupiedSeats = occupiedSeats;
-        TotalSeats = totalSeats;
-        PassengerIds = passengerIds;
-        TicketsIds = ticketsIds;
+    public Trip(String id, String busId, String driverId, String routeId, Date startTime, Date endTime, String status) {
+        this.id = id;
+        this.busId = busId;
+        this.driverId = driverId;
+        this.routeId = routeId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status = status;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public String getBusId() {
+        return busId;
     }
 
     public String getDriverId() {
-        return DriverId;
-    }
-
-    public void setDriverId(String driverId) {
-        DriverId = driverId;
+        return driverId;
     }
 
     public String getRouteId() {
-        return RouteId;
-    }
-
-    public void setRouteId(String routeId) {
-        RouteId = routeId;
+        return routeId;
     }
 
     public Date getStartTime() {
-        return StartTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        StartTime = startTime;
+        return startTime;
     }
 
     public Date getEndTime() {
-        return EndTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        EndTime = endTime;
+        return endTime;
     }
 
     public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String status) {
-        Status = status;
+        return status;
     }
 
     public int getOccupiedSeats() {
-        return OccupiedSeats;
-    }
-
-    public void setOccupiedSeats(int occupiedSeats) {
-        OccupiedSeats = occupiedSeats;
+        return occupiedSeats;
     }
 
     public int getTotalSeats() {
-        return TotalSeats;
+        return totalSeats;
     }
 
-    public void setTotalSeats(int totalSeats) {
-        TotalSeats = totalSeats;
-    }
-
-    public List<String> getPassengerIds() {
-        return PassengerIds;
-    }
-
-    public void setPassengerIds(List<String> passengerIds) {
-        PassengerIds = passengerIds;
-    }
-
-    public List<String> getTicketsIds() {
-        return TicketsIds;
-    }
-
-    public void setTicketsIds(List<String> ticketsIds) {
-        TicketsIds = ticketsIds;
+    @Override
+    public String toString() {
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault());
+        return sdf.format(startTime) + " - " + (endTime != null ? sdf.format(endTime) : "En curso");
     }
 }

@@ -9,4 +9,17 @@
     <string name="modelo_vehiculo">Modelo Vehiculo</string>
     <string name="placa_vehiculo">Placa Vehiculo</string>
     <string name="asientos_disponibles">Asientos Disponibles</string>
+    <string name="api_key">AIzaSyDiHCfCjzf-C8A8ZaYPknAQEoJ_WYTxhhk</string>
+    <string name="seleccione_viaje">Seleccione un viaje</string>
+    <string name="fecha_bus">Fecha Bus</string>
+    
+    <string-array name="incident_types">
+        <item>Seleccione tipo de incidente</item>
+        <item>Choque</item>
+        <item>Tráfico</item>
+        <item>Falla Mecánica</item>
+        <item>Accidente</item>
+        <item>Retraso</item>
+        <item>Otro</item>
+    </string-array>
 </resources>

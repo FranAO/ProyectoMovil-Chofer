@@ -1,13 +1,11 @@
-package com.example.proyectomovil;
+package com.example.proyectomovil.UI;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,8 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.proyectomovil.Database.DBHelper;
-import com.example.proyectomovil.Models.Driver;
+import com.example.proyectomovil.R;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.concurrent.Executor;
@@ -124,21 +121,54 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-        DBHelper dbHelper = new DBHelper(this);
-        Driver driver = dbHelper.obtenerDriverPorEmail(email);
+        new Thread(() -> {
+            try {
+                java.net.URL url = new java.net.URL("http://10.0.2.2:5090/api/driver/email/" + email);
+                java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
 
-        if (driver == null) {
-            Toast.makeText(this, "Correo no registrado", Toast.LENGTH_SHORT).show();
-            return;
-        }
+                int responseCode = conn.getResponseCode();
 
-        if (!driver.getPasswordHash().equals(password)) {
-            Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
-            return;
-        }
+                if (responseCode == 200) {
+                    java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(conn.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    reader.close();
 
-        saveLoggedInUser(email);
-        goToMain();
+                    String jsonResponse = response.toString();
+                    android.util.Log.d("LOGIN_DEBUG", "Response: " + jsonResponse);
+                    
+                    org.json.JSONObject driverJson = new org.json.JSONObject(jsonResponse);
+                    
+                    if (!driverJson.has("passwordHash") || driverJson.isNull("passwordHash")) {
+                        runOnUiThread(() -> Toast.makeText(this, "Error: Datos del chofer incompletos", Toast.LENGTH_SHORT).show());
+                        return;
+                    }
+
+                    String passwordHash = driverJson.getString("passwordHash");
+
+                    if (passwordHash.equals(password)) {
+                        runOnUiThread(() -> {
+                            saveLoggedInUser(email);
+                            goToMain();
+                        });
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show());
+                    }
+                } else if (responseCode == 404) {
+                    runOnUiThread(() -> Toast.makeText(this, "Cuenta de chofer no encontrada", Toast.LENGTH_SHORT).show());
+                } else {
+                    runOnUiThread(() -> Toast.makeText(this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show());
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(this, "Error de conexión: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+        }).start();
     }
 
     private void handlePasswordToggle() {
@@ -151,7 +181,10 @@ public class Login extends AppCompatActivity {
     }
 
     private void saveLoggedInUser(String email) {
-        prefs.edit().putString(LOGGED_IN_USER_EMAIL, email).apply();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(LOGGED_IN_USER_EMAIL, email);
+        editor.commit(); // Use commit() instead of apply() to ensure synchronous save
+        android.util.Log.d("LOGIN_DEBUG", "Email saved: " + email);
     }
 
     private void goToMain() {

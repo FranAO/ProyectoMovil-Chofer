@@ -1,4 +1,4 @@
-package com.example.proyectomovil;
+package com.example.proyectomovil.UI;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -15,13 +15,15 @@ import androidx.biometric.BiometricPrompt;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
+import com.example.proyectomovil.R;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.concurrent.Executor;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private CardView cardBackButton;
+    private MaterialButton cardBackButton;
     private CardView logoutCard;
     private TextView tvUserName;
     private SwitchMaterial switchBiometric;
@@ -172,7 +174,6 @@ public class SettingsActivity extends AppCompatActivity {
     private void performLogout() {
         prefs.edit()
                 .remove(LOGGED_IN_USER_EMAIL)
-                .remove(BIOMETRIC_USER_ID)
                 .apply();
 
         Intent intent = new Intent(this, Login.class);
