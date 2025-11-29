@@ -40,21 +40,18 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
     private void initializeNavigationViews() {
         slidingIndicator = findViewById(R.id.sliding_indicator);
 
-        // Inicializar botones
         navButtons[0] = findViewById(R.id.nav_button_1);
         navButtons[1] = findViewById(R.id.nav_button_2);
         navButtons[2] = findViewById(R.id.nav_button_3);
         navButtons[3] = findViewById(R.id.nav_button_4);
         navButtons[4] = findViewById(R.id.nav_button_5);
 
-        // Inicializar iconos
         icons[0] = findViewById(R.id.icon_1);
         icons[1] = findViewById(R.id.icon_2);
         icons[2] = findViewById(R.id.icon_3);
         icons[3] = findViewById(R.id.icon_4);
         icons[4] = findViewById(R.id.icon_5);
 
-        // Inicializar etiquetas
         labels[0] = findViewById(R.id.label_1);
         labels[1] = findViewById(R.id.label_2);
         labels[2] = findViewById(R.id.label_3);
@@ -73,7 +70,6 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
                 }
             });
 
-            // Animaciones de hover
             navButtons[i].setOnTouchListener((v, event) -> {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
@@ -137,37 +133,29 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
     }
 
     protected void selectButton(int index) {
-        // Resetear todos los botones
         for (int i = 0; i < navButtons.length; i++) {
             resetButton(i);
         }
-
-        // Activar el botón seleccionado
         activateButton(index);
-
-        // Mover el indicador deslizante
         moveIndicator(index);
-
         currentSelectedIndex = index;
     }
 
     private void resetButton(int index) {
-        // Resetear colores del icono y texto
         ImageViewCompat.setImageTintList(icons[index],
                 ContextCompat.getColorStateList(this, R.color.text_inactive));
         labels[index].setTextColor(ContextCompat.getColor(this, R.color.text_inactive));
         labels[index].setAlpha(0.7f);
 
-        // Resetear escala
         ObjectAnimator scaleXIcon = ObjectAnimator.ofFloat(icons[index], "scaleX", 1.0f);
         ObjectAnimator scaleYIcon = ObjectAnimator.ofFloat(icons[index], "scaleY", 1.0f);
         ObjectAnimator scaleXLabel = ObjectAnimator.ofFloat(labels[index], "scaleX", 1.0f);
         ObjectAnimator scaleYLabel = ObjectAnimator.ofFloat(labels[index], "scaleY", 1.0f);
 
-        scaleXIcon.setDuration(200);
-        scaleYIcon.setDuration(200);
-        scaleXLabel.setDuration(200);
-        scaleYLabel.setDuration(200);
+        scaleXIcon.setDuration(100);
+        scaleYIcon.setDuration(100);
+        scaleXLabel.setDuration(100);
+        scaleYLabel.setDuration(100);
 
         scaleXIcon.start();
         scaleYIcon.start();
@@ -176,22 +164,20 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
     }
 
     private void activateButton(int index) {
-        // Cambiar colores del botón activo
         ImageViewCompat.setImageTintList(icons[index],
                 ContextCompat.getColorStateList(this, R.color.text_active));
         labels[index].setTextColor(ContextCompat.getColor(this, R.color.text_active));
         labels[index].setAlpha(1.0f);
 
-        // Animar escala del botón activo
         ObjectAnimator scaleXIcon = ObjectAnimator.ofFloat(icons[index], "scaleX", 1.2f);
         ObjectAnimator scaleYIcon = ObjectAnimator.ofFloat(icons[index], "scaleY", 1.2f);
         ObjectAnimator scaleXLabel = ObjectAnimator.ofFloat(labels[index], "scaleX", 1.1f);
         ObjectAnimator scaleYLabel = ObjectAnimator.ofFloat(labels[index], "scaleY", 1.1f);
 
-        scaleXIcon.setDuration(300);
-        scaleYIcon.setDuration(300);
-        scaleXLabel.setDuration(300);
-        scaleYLabel.setDuration(300);
+        scaleXIcon.setDuration(80);
+        scaleYIcon.setDuration(80);
+        scaleXLabel.setDuration(80);
+        scaleYLabel.setDuration(80);
 
         scaleXIcon.setInterpolator(new DecelerateInterpolator());
         scaleYIcon.setInterpolator(new DecelerateInterpolator());
@@ -203,9 +189,8 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
         scaleXLabel.start();
         scaleYLabel.start();
 
-        // Animación de bounce para el icono
         ObjectAnimator bounceAnimator = ObjectAnimator.ofFloat(icons[index], "translationY", 0, -10, 0);
-        bounceAnimator.setDuration(400);
+        bounceAnimator.setDuration(150);
         bounceAnimator.setInterpolator(new DecelerateInterpolator());
         bounceAnimator.start();
     }
@@ -214,32 +199,28 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
         for (int i = 0; i < navButtons.length; i++) {
             resetButton(i);
         }
-        // Activar el botón objetivo
         activateButton(index);
 
         slidingIndicator.setVisibility(View.VISIBLE);
 
-        // Calcular la posición X del botón objetivo
         navButtons[index].post(() -> {
             float targetX = navButtons[index].getX() + (navButtons[index].getWidth() - slidingIndicator.getWidth()) / 2f;
 
-            // Animar el movimiento del indicador
             ObjectAnimator animator = ObjectAnimator.ofFloat(slidingIndicator, "x", targetX);
-            animator.setDuration(400);
+            animator.setDuration(150);
             animator.setInterpolator(new DecelerateInterpolator());
 
-            // Agregar animación de escala durante el movimiento
             ObjectAnimator scaleX = ObjectAnimator.ofFloat(slidingIndicator, "scaleX", 0.8f, 1.2f, 1.0f);
             ObjectAnimator scaleY = ObjectAnimator.ofFloat(slidingIndicator, "scaleY", 0.8f, 1.2f, 1.0f);
-            scaleX.setDuration(400);
-            scaleY.setDuration(400);
+            scaleX.setDuration(150);
+            scaleY.setDuration(150);
 
             animator.start();
             scaleX.start();
             scaleY.start();
         });
 
-        currentSelectedIndex = index; // Actualizar el índice actual
+        currentSelectedIndex = index;
     }
 
     private void animateButtonPress(int index, boolean pressed) {

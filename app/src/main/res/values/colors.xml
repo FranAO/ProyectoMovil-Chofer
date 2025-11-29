@@ -8,4 +8,6 @@
     <color name="background_color">#FFFFFD</color>
     <color name="text_inactive">#9CADBA</color>
     <color name="text_active">#8D0743</color>
+    <color name="inactive_color">#9CADBA</color>
+    <color name="active_color">#8D0743</color>
 </resources>
